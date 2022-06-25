@@ -18,18 +18,18 @@ class UsersURLTests(TestCase):
     def test_urls_response_guest(self):
         """Проверяем статус страниц для гостя"""
         url_status = {
-            reverse('users:login'): HTTPStatus.OK, #200
-            reverse('users:logout'): HTTPStatus.OK, #200
-            reverse('users:signup'): HTTPStatus.OK, #200
-            reverse('users:password_change_form'): HTTPStatus.FOUND, #302
-            reverse('users:password_change_done'): HTTPStatus.FOUND, #302
-            reverse('users:password_reset_form'): HTTPStatus.OK, #200
-            reverse('users:password_reset_done'): HTTPStatus.OK, #200
+            reverse('users:login'): HTTPStatus.OK,  #200
+            reverse('users:logout'): HTTPStatus.OK,  #200
+            reverse('users:signup'): HTTPStatus.OK,  #200
+            reverse('users:password_change_form'): HTTPStatus.FOUND,  #302
+            reverse('users:password_change_done'): HTTPStatus.FOUND,  #302
+            reverse('users:password_reset_form'): HTTPStatus.OK,  #200
+            reverse('users:password_reset_done'): HTTPStatus.OK,  #200
             reverse('users:password_reset_confirm',
                     kwargs={
                         'uidb64': 'NA', 'token': '5u2-61df9f91c57dffda7348'
                     }): HTTPStatus.OK, #200
-            reverse('users:password_reset_complete'): HTTPStatus.OK, #200
+            reverse('users:password_reset_complete'): HTTPStatus.OK,  #200
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
@@ -54,8 +54,8 @@ class UsersURLTests(TestCase):
     def test_urls_response_auth(self):
         """Проверяем статус страниц для авторизованного пользователя"""
         url_status = {
-            reverse('users:password_change_form'): HTTPStatus.OK, #200
-            reverse('users:password_change_done'): HTTPStatus.OK #200
+            reverse('users:password_change_form'): HTTPStatus.OK,  #200
+            reverse('users:password_change_done'): HTTPStatus.OK  #200
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
