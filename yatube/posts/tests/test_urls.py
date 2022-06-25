@@ -39,21 +39,21 @@ class PostURLTests(TestCase):
             reverse(
                 'posts:group_list',
                 kwargs={'slug': PostURLTests.group.slug}
-            ): HTTPStatus.OK,  #200
+            ): HTTPStatus.OK, # 200
             reverse(
                 'posts:profile',
                 kwargs={'username': PostURLTests.user.username}
-            ): HTTPStatus.OK,  #200
+            ): HTTPStatus.OK, # 200
             reverse(
                 'posts:post_detail',
                 kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.OK,  #200
+            ): HTTPStatus.OK, # 200
             reverse(
                 'posts:post_edit',
                 kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.FOUND,  #302
-            reverse('posts:post_create'): HTTPStatus.FOUND,  #302
-            '/unexpecting_page/': HTTPStatus.NOT_FOUND  #404
+            ): HTTPStatus.FOUND, # 302
+            reverse('posts:post_create'): HTTPStatus.FOUND, # 302
+            '/unexpecting_page/': HTTPStatus.NOT_FOUND # 404
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
@@ -86,8 +86,8 @@ class PostURLTests(TestCase):
         url_status = {
             reverse(
                 'posts:post_edit', kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.OK,  #200
-            reverse('posts:post_create'): HTTPStatus.OK,  #200
+            ): HTTPStatus.OK, # 200
+            reverse('posts:post_create'): HTTPStatus.OK, # 200
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
