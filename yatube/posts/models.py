@@ -20,7 +20,7 @@ class Group(models.Model):
 class Post(models.Model):
     text = models.TextField(
         blank=False,
-        verbose_name='Описание',
+        verbose_name='Текст',
         help_text='Введите текст'
     )
     author = models.ForeignKey(
