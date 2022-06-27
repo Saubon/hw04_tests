@@ -23,8 +23,7 @@ class PostURLTests(TestCase):
         )
         cls.post = Post.objects.create(
             author=cls.user,
-            text='Новый пост для проверки',
-            group=cls.group
+            text='Новый пост для проверки'
         )
 
     def setUp(self):
