@@ -32,10 +32,39 @@ class PostURLTests(TestCase):
         self.authorized_client = Client()
         self.authorized_client.force_login(PostURLTests.user)
 
+    def test_urls_response_auth(self):
+        """Проверяем статус страниц для авторизованного пользователя"""
+        url_status = {
+            reverse('posts:index'): HTTPStatus.OK,  # 200
+            reverse(
+                'posts:group_list',
+                kwargs={'slug': PostURLTests.group.slug}
+            ): HTTPStatus.OK,  # 200
+            reverse(
+                'posts:profile',
+                kwargs={'username': PostURLTests.user.username}
+            ): HTTPStatus.OK,  # 200
+            reverse(
+                'posts:post_detail',
+                kwargs={'post_id': PostURLTests.post.pk}
+            ): HTTPStatus.OK,  # 200
+            reverse(
+                'posts:post_edit',
+                kwargs={'post_id': PostURLTests.post.pk}
+            ): HTTPStatus.OK,  # 200
+            reverse(
+                'posts:post_create'
+            ): HTTPStatus.OK,  # 200
+        }
+        for url, status_code in url_status.items():
+            with self.subTest(url=url):
+                response = self.authorized_client.get(url)
+                self.assertEqual(response.status_code, status_code)
+
     def test_urls_response_guest(self):
         """Проверяем статус страниц для гостя"""
         url_status = {
-            reverse('posts:index'): HTTPStatus.OK,
+            reverse('posts:index'): HTTPStatus.OK,  # 200
             reverse(
                 'posts:group_list',
                 kwargs={'slug': PostURLTests.group.slug}
@@ -52,29 +81,16 @@ class PostURLTests(TestCase):
                 'posts:post_edit',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.FOUND,  # 302
-            reverse('posts:post_create'): HTTPStatus.FOUND,  # 302
-            '/unexpecting_page/': HTTPStatus.NOT_FOUND  # 404
+            reverse(
+                'posts:post_create'): HTTPStatus.FOUND,  # 302
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
                 response = self.guest_client.get(url)
                 self.assertEqual(response.status_code, status_code)
 
-    def test_urls_response_auth(self):
-        """Проверяем статус страниц для авторизованного пользователя"""
-        url_status = {
-            reverse(
-                'posts:post_edit', kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.OK,  # 200
-            reverse('posts:post_create'): HTTPStatus.OK,  # 200
-        }
-        for url, status_code in url_status.items():
-            with self.subTest(url=url):
-                response = self.authorized_client.get(url)
-                self.assertEqual(response.status_code, status_code)
-
     def test_urls_uses_correct_template(self):
-        """Проверяем запрашиваемые шаблоны страниц через имена"""
+        """Проверяем запрашиваемые шаблоны страниц через имена."""
         cache.clear()
         templates_pages_names = {
             reverse('posts:index'): 'posts/index.html',
@@ -94,7 +110,7 @@ class PostURLTests(TestCase):
                 'posts:post_edit',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): 'posts/create_post.html',
-            reverse('posts:post_create'): 'posts/create_post.html',
+            reverse('posts:post_create'): 'posts/create_post.html'
         }
         for reverse_name, template in templates_pages_names.items():
             with self.subTest(reverse_name=reverse_name):
