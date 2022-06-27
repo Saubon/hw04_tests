@@ -113,7 +113,8 @@ class PostURLTests(TestCase):
                 'posts:post_edit',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): 'posts/create_post.html',
-            reverse('posts:post_create',
+            reverse(
+                'posts:post_create',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): 'posts/create_post.html'
         }
