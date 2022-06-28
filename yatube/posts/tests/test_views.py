@@ -95,7 +95,7 @@ class PostViewTests(TestCase):
             )
         )
         page_post_detail_context = response_post_detail.context
-        self.assertEqual(page_post_detail_context)
+        self.assertEqual(page_post_detail_context,PostViewTests.post)
 
     def test_profile_show_correct_context(self):
         """Шаблон profile сформирован с правильным контекстом"""
