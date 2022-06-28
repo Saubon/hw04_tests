@@ -52,7 +52,7 @@ class PostURLTests(TestCase):
                 'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,
-            reverse('posts:post_create'): HTTPStatus.FOUND,
+            reverse('posts:create_post'): HTTPStatus.FOUND,
             '/unexpecting_page/': HTTPStatus.NOT_FOUND,
         }
         for url, status_code in url_status.items():
