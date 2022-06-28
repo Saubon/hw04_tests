@@ -49,11 +49,11 @@ class PostURLTests(TestCase):
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,  # 200
             reverse(
-                'posts:post_edit',
+                'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,  # 200
             reverse(
-                'posts:post_create',
+                'posts:create_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,  # 200
         }
@@ -79,11 +79,11 @@ class PostURLTests(TestCase):
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,  # 200
             reverse(
-                'posts:post_edit',
+                'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.FOUND,  # 302
             reverse(
-                'posts:post_create',
+                'posts:create_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.FOUND,  # 302
         }
@@ -110,11 +110,11 @@ class PostURLTests(TestCase):
                 kwargs={'post_id': PostURLTests.post.pk}
             ): 'posts/post_detail.html',
             reverse(
-                'posts:post_edit',
+                'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): 'posts/create_post.html',
             reverse(
-                'posts:post_create',
+                'posts:create_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): 'posts/create_post.html'
         }
