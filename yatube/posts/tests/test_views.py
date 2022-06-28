@@ -73,7 +73,18 @@ class PostViewTests(TestCase):
         """Шаблон index сформирован с правильным контекстом"""
         response_index = self.authorized_client.get(reverse('posts:index'))
         page_index_context = response_index.context
-        self.post_exist(page_index_context)
+        self.assertEqual(page_index_context)
+
+    def test_group_page_show_correct_context(self):
+        """Шаблон group_list сформирован с правильным контекстом"""
+        response_group = self.authorized_client.get(
+            reverse(
+                'posts:group_list',
+                kwargs={'slug': PostViewTests.group.slug}
+            )
+        )
+        task_group = response_group.context['group']
+        self.assertEqual(task_group, PostViewTests.group)
 
     def test_post_detail_show_correct_context(self):
         """Шаблон post_detail сформирован с правильным контекстом."""
@@ -84,20 +95,7 @@ class PostViewTests(TestCase):
             )
         )
         page_post_detail_context = response_post_detail.context
-        self.post_exist(page_post_detail_context)
-
-    def test_group_page_show_correct_context(self):
-        """Шаблон group_list сформирован с правильным контекстом"""
-        response_group = self.authorized_client.get(
-            reverse(
-                'posts:group_list',
-                kwargs={'slug': PostViewTests.group.slug}
-            )
-        )
-        page_group_context = response_group.context
-        task_group = response_group.context['group']
-        self.post_exist(page_group_context)
-        self.assertEqual(task_group, PostViewTests.group)
+        self.assertEqual(page_post_detail_context)
 
     def test_profile_show_correct_context(self):
         """Шаблон profile сформирован с правильным контекстом"""
@@ -107,14 +105,12 @@ class PostViewTests(TestCase):
                 kwargs={'username': PostViewTests.user.username}
             )
         )
-        page_profile_context = response_profile.context
         task_profile = response_profile.context['author']
-        self.post_exist(page_profile_context)
         self.assertEqual(task_profile, PostViewTests.user)
 
     def test_create_post_page_show_correct_context(self):
         """Шаблон create_post (create) сформирован с правильным контекстом"""
-        response = self.authorized_client.get(reverse('posts:post_create'))
+        response = self.authorized_client.get(reverse('posts:create_post'))
         form_fields = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField
@@ -127,7 +123,7 @@ class PostViewTests(TestCase):
     def test_post_edit_page_show_correct_context(self):
         """Шаблон create_post (edit) сформирован с правильным контекстом"""
         response = self.authorized_client.get(
-            reverse('posts:post_edit',
+            reverse('posts:update_post',
                     kwargs={'post_id': PostViewTests.post.pk})
         )
         form_fields = {
