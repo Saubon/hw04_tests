@@ -35,25 +35,11 @@ class PostURLTests(TestCase):
     def test_urls_response_auth(self):
         """Проверяем статус страниц для авторизованного пользователя"""
         url_status = {
-            reverse('posts:index'): HTTPStatus.OK,
-            reverse(
-                'posts:group_list',
-                kwargs={'slug': PostURLTests.group.slug}
-            ): HTTPStatus.OK,
-            reverse(
-                'posts:profile',
-                kwargs={'username': PostURLTests.user.username}
-            ): HTTPStatus.OK,
-            reverse(
-                'posts:post_detail',
-                kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.OK,
             reverse(
                 'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,
             reverse('posts:create_post'): HTTPStatus.FOUND,
-            '/unexpecting_page/': HTTPStatus.NOT_FOUND,
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
@@ -80,10 +66,8 @@ class PostURLTests(TestCase):
                 'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.FOUND,
-            reverse(
-                'posts:create_post',
-                kwargs={'/': PostURLTests.post.pk}
-            ): HTTPStatus.FOUND,
+            reverse('posts:create_post'): HTTPStatus.FOUND,
+            '/unexpecting_page/': HTTPStatus.NOT_FOUND,
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
