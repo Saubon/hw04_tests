@@ -35,23 +35,23 @@ class PostURLTests(TestCase):
     def test_urls_response_auth(self):
         """Проверяем статус страниц для авторизованного пользователя"""
         url_status = {
-            reverse('posts:index'): HTTPStatus.OK,  # 200
+            reverse('posts:index'): HTTPStatus.OK,
             reverse(
                 'posts:group_list',
                 kwargs={'slug': PostURLTests.group.slug}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.OK,
             reverse(
                 'posts:profile',
                 kwargs={'username': PostURLTests.user.username}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.OK,
             reverse(
                 'posts:post_detail',
                 kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.OK,
             reverse(
                 'posts:update_post',
                 kwargs={'post_id/edit': PostURLTests.post.pk}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.FOUND,
             reverse('posts:post_create'): HTTPStatus.FOUND,
             '/unexpecting_page/': HTTPStatus.NOT_FOUND,
         }
@@ -63,27 +63,27 @@ class PostURLTests(TestCase):
     def test_urls_response_guest(self):
         """Проверяем статус страниц для гостя"""
         url_status = {
-            reverse('posts:index'): HTTPStatus.OK,  # 200
+            reverse('posts:index'): HTTPStatus.OK,
             reverse(
                 'posts:group_list',
                 kwargs={'slug': PostURLTests.group.slug}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.OK,
             reverse(
                 'posts:profile',
                 kwargs={'username': PostURLTests.user.username}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.OK,
             reverse(
                 'posts:post_detail',
                 kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.OK,  # 200
+            ): HTTPStatus.OK,
             reverse(
                 'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
-            ): HTTPStatus.FOUND,  # 302
+            ): HTTPStatus.FOUND,
             reverse(
                 'posts:create_post',
                 kwargs={'/': PostURLTests.post.pk}
-            ): HTTPStatus.FOUND,  # 302
+            ): HTTPStatus.FOUND,
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
