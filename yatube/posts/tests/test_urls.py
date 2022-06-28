@@ -54,7 +54,7 @@ class PostURLTests(TestCase):
             ): HTTPStatus.OK,  # 200
             reverse(
                 'posts:create_post',
-                kwargs={'create/': PostURLTests.post.pk}
+                kwargs={'/': PostURLTests.post.pk}
             ): HTTPStatus.OK,  # 200
         }
         for url, status_code in url_status.items():
@@ -84,7 +84,7 @@ class PostURLTests(TestCase):
             ): HTTPStatus.FOUND,  # 302
             reverse(
                 'posts:create_post',
-                kwargs={'create/': PostURLTests.post.pk}
+                kwargs={'/': PostURLTests.post.pk}
             ): HTTPStatus.FOUND,  # 302
         }
         for url, status_code in url_status.items():
@@ -115,7 +115,7 @@ class PostURLTests(TestCase):
             ): 'posts/create_post.html',
             reverse(
                 'posts:create_post',
-                kwargs={'create/': PostURLTests.post.pk}
+                kwargs={'/': PostURLTests.post.pk}
             ): 'posts/create_post.html'
         }
         for reverse_name, template in templates_pages_names.items():
