@@ -39,7 +39,7 @@ class PostURLTests(TestCase):
                 'posts:update_post',
                 kwargs={'post_id': PostURLTests.post.pk}
             ): HTTPStatus.OK,
-            reverse('posts:create_post'): HTTPStatus.FOUND,
+            reverse('posts:create_post'): HTTPStatus.OK,
         }
         for url, status_code in url_status.items():
             with self.subTest(url=url):
