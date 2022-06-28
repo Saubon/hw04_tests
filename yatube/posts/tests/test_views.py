@@ -22,7 +22,7 @@ class PostViewTests(TestCase):
         )
         cls.post = Post.objects.create(
             author=cls.user,
-            text='Тестовый пост не обязан быть интересным. Sorry',
+            text='Тестовый пост',
             group=cls.group,
         )
 
